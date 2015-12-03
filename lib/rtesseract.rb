@@ -9,7 +9,6 @@ require 'rtesseract/box'
 require 'rtesseract/box_char'
 
 # Processors
-require 'processors/rmagick.rb'
 require 'processors/mini_magick.rb'
 require 'processors/quick_magick.rb'
 require 'processors/none.rb'
@@ -49,7 +48,7 @@ class RTesseract
     @command = @options.option(:command, default_command)
     @lang = @options.option(:lang, '')
     @psm = @options.option(:psm, nil)
-    @processor = @options.option(:processor, 'rmagick')
+    @processor = @options.option(:processor, 'mini_magick')
     @debug = @options.option(:debug, false)
     @options_cmd = @options.option(:options, [])
     @options_cmd = [@options_cmd] unless @options_cmd.is_a?(Array)
@@ -237,7 +236,7 @@ class RTesseract
     elsif NoneProcessor.a_name?(processor.to_s)
       NoneProcessor
     else
-      RMagickProcessor
+      MiniMagickProcessor
     end
     processor.setup
     processor
